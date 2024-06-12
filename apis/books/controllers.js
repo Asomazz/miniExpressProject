@@ -3,14 +3,14 @@ const Book = require("../../models/Book.js");
 const getAllBooks = async (req, res, next) => {
   try {
     const books = await Book.find();
-    return req.status(200).json(books);
+    return res.status(200).json(books);
   } catch (error) {
     return next(error);
   }
 };
 
 const getBookById = async (req, res, next) => {
-  const id = req.param.id;
+  const id = req.params.id;
   try {
     const book = await Book.findById(id);
     if (book) {
@@ -36,7 +36,7 @@ const createABook = async (req, res, next) => {
 };
 
 const updateABook = async (req, res, next) => {
-  const id = req.param.id;
+  const id = req.params.id;
   try {
     const updatedBook = await Book.findByIdAndUpdate(id, req.body, {
       new: true,
@@ -48,7 +48,7 @@ const updateABook = async (req, res, next) => {
 };
 
 const deleteABook = async (req, res, next) => {
-  const id = req.param.id;
+  const id = req.params.id;
   try {
     const books = await Book.find();
     await Book.findByIdAndDelete(id);
